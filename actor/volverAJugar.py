@@ -1,10 +1,8 @@
 from pilasengine.actores.actor import Actor
-from logica.cde import CDE
 
 class VolverAJugar(Actor):
 
 	def iniciar(self, x = 0, y = 0):
-		self.cde = CDE(self.pilas)
 		self.x = x
 		self.y = y
 		self.imagen = "invisible.png"
@@ -15,6 +13,6 @@ class VolverAJugar(Actor):
 
 
 	def cuandoPulsanElBoton(self):
-		self.cde.irALaPantallaDelJuego()
+		self.pilas.escenas.PantallaJuego(pilas=self.pilas)
 
 
