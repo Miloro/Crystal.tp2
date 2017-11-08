@@ -7,9 +7,6 @@ from actor.powerUp import PowerUp
 from actor.golpe import Golpe
 from actor.pinche import Pinche
 
-
-
-
 pilas = pilasengine.iniciar(titulo='Crystal - alpha', habilitar_mensajes_log=False)
 
 pilas.escenas.vincular(PantallaJuegoTerminado)

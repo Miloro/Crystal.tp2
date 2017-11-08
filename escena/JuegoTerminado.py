@@ -18,6 +18,12 @@ class PantallaJuegoTerminado(pilasengine.escenas.Escena):
         texto_codigo2 = self.pilas.actores.Texto(self.frasesDeMuerte [random.randint(0,4)])
         texto_codigo2.escala = 0.5
         texto_codigo.y = 100
-        self.volverAJugar = VolverAJugar(pilas, 0 , -123)
+        self.pilas.eventos.pulsa_tecla_escape.conectar(self.activar_menu_principal)
+
+
+    def activar_menu_principal(self, evento):
+        self.pilas.escenas.PantallaJuego(pilas=self.pilas)
+
+
 
 

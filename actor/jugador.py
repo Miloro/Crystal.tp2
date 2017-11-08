@@ -21,12 +21,12 @@ class Jugador(Actor):
         self.animacion.definir_animacion('parado', [0, 1, 2 , 3], 6)
         self.animacion.definir_animacion('caminar', [4 ,5, 6, 7, 8, 9], 15)
         self.animacion.definir_animacion('saltando', [5], 1)
-        self.animacion.definir_animacion('golpeando',[10,11,12,13,14], 13)
+        self.animacion.definir_animacion('golpeando',[11,12,13,14,10], 10)
+        self.alturaSalto = 60
 
 
     def actualizar(self):
         self.imagen.avanzar()
-        salto = 60
         self.x = self.figura.x
         self.y = self.figura.y
         self.pilas.camara.x = self.x
@@ -39,8 +39,8 @@ class Jugador(Actor):
         elif self.pilas.control.boton:
             if self.puedoPegar:
                 self.puedoPegar = False
-                self.golpe = Golpe(self.pilas,self.x +(self.direccion * 40) , self.y)
-                self.enfriamiento = self.pilas.tareas.agregar(0.5, self.terminarCoolddown,self.golpe)
+                self.golpe = Golpe(self.pilas,self.x +(self.direccion * 30) , self.y)
+                self.enfriamiento = self.pilas.tareas.agregar(0.1, self.terminarCoolddown,self.golpe)
                 self.figura.velocidad_x = 0
                 self.imagen.cargar_animacion('golpeando')
 
@@ -51,7 +51,7 @@ class Jugador(Actor):
 
         if self.esta_pisando_el_suelo():
             if self.pilas.control.arriba and int(self.figura.velocidad_y) <= 0:
-                self.figura.impulsar(0, salto)
+                self.figura.impulsar(0, self.alturaSalto)
 
 
         self.sensor_pies.x = self.x
@@ -79,11 +79,13 @@ class Jugador(Actor):
         if self.powerUp is not None:
             self.powerUp.terminar()
             self.powerUp = None
-        self.velocidad = 15
+        self.velocidad = 20
+        self.alturaSalto = 100
         self.powerUp = self.pilas.tareas.agregar(10, self.normalizar)
 
     def normalizar(self):
         self.velocidad = 10
+        self.alturaSalto = 60
         self.powerUp.terminar()
         self.powerUp = None
 
